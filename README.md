@@ -1,4 +1,4 @@
-# 67 — The Extremely Unnecessary Hand Game
+# 67 Slop
 
 **Hackathon Track 6: Dumbest Idea**
 
