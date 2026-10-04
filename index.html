@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f8fc" />
+    <meta name="description" content="A quick hand-tracking game. Lift your hand and lower it to score." />
+    <title>67 — Hand Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="67 hand game home"><span class="brand-mark">6<span>7</span></span><span class="brand-name">HAND<br />GAME</span></a>
+        <a class="top-link" href="#how-to-play">How to play <span aria-hidden="true">↓</span></a>
+      </header>
+
+      <main id="top">
+        <section class="intro" aria-labelledby="page-title">
+          <div class="intro-copy">
+            <p class="eyebrow"><span>QUICK HAND GAME</span> · 30 SECONDS</p>
+            <h1 id="page-title">Do the <span class="title-stroke">67.</span></h1>
+            <p class="intro-text">Lift your hand. Lower it. See how many you can get.</p>
+          </div>
+          <div class="intro-stamp" aria-hidden="true"></div>
+        </section>
+
+        <section class="game-grid" aria-label="Game">
+          <div class="camera-card">
+            <div class="card-topline"><span><span class="camera-indicator" id="camera-indicator"></span> <span id="camera-label">CAMERA OFF</span></span><span class="camera-tag">CAMERA VIEW</span></div>
+            <div class="camera-stage" id="camera-stage">
+              <video id="webcam" autoplay playsinline muted aria-label="Webcam preview"></video>
+              <canvas id="landmark-canvas" aria-hidden="true"></canvas>
+              <div class="camera-empty" id="camera-empty">
+                <svg class="hand-doodle" viewBox="0 0 100 110" role="img" aria-label="Hand lifting up">
+                  <path d="M32 91 26 69c-2-7 7-11 11-4l5 9-5-37c-1-8 10-9 11-1l4 27-2-40c0-8 11-8 11 0l2 39 2-31c1-8 12-7 12 1l-1 35 5-19c2-7 12-4 10 4l-7 29c-3 13-13 21-27 21H48c-7 0-12-4-16-11Z" />
+                  <path d="m72 15 8-8m-8 8 10 1m-10-1 1-10" />
+                </svg>
+                <p>CAMERA PREVIEW</p>
+                <small>Your video stays on this device</small>
+              </div>
+              <div class="camera-overlay" id="camera-overlay" hidden><span class="tracking-badge"><span class="live-dot"></span> TRACKING</span></div>
+              <div class="countdown-overlay" id="countdown-overlay" hidden></div>
+              <div class="gesture-prompt" id="gesture-prompt" hidden>SHOW BOTH HANDS <span>↗</span></div>
+              <div class="unicorn-floater" id="unicorn-floater" aria-hidden="true" hidden>
+                <img src="/unicorn.svg" alt="" />
+                <span id="unicorn-message">6!</span>
+              </div>
+            </div>
+            <div class="camera-footer">
+              <div class="camera-tip"><span>Show one or both hands<br /><strong>palms facing the camera.</strong></span></div>
+              <div class="start-controls">
+                <label class="player-name-label" for="player-name">YOUR NAME
+                  <input id="player-name" name="player-name" type="text" maxlength="16" autocomplete="nickname" placeholder="Enter a name" required />
+                </label>
+                <button class="start-button" id="start-button" type="button"><span class="button-icon">▶</span><span id="start-button-label">Start game</span></button>
+              </div>
+            </div>
+            <p class="error-message" id="error-message" role="alert" hidden></p>
+          </div>
+
+          <aside class="score-column" aria-label="Score and timer">
+            <div class="score-card">
+              <div class="score-label"><span>YOUR SCORE</span></div>
+              <div class="score-number" id="score">00</div>
+              <div class="score-caption" id="score-caption">LIFTS</div>
+              <div class="score-rule"></div>
+              <div class="best-row"><span>PERSONAL BEST</span><strong id="best-score">00 <span>REPS</span></strong></div>
+            </div>
+            <div class="timer-card" id="timer-card">
+              <div class="timer-heading"><span>TIME LEFT</span><span class="timer-icon">◷</span></div>
+              <div class="timer-number" id="timer">30<span>.0</span></div>
+              <div class="timer-track"><div class="timer-fill" id="timer-fill"></div></div>
+              <div class="duration-row" aria-label="Game duration">
+                <button class="duration-option" data-duration="15" type="button">15 SEC</button>
+                <button class="duration-option is-selected" data-duration="30" type="button">30 SEC</button>
+                <button class="duration-option" data-duration="60" type="button">60 SEC</button>
+              </div>
+            </div>
+            <div class="status-note" id="status-note"><span class="status-icon" aria-hidden="true">●</span><p>Ready when you are.</p></div>
+          </aside>
+        </section>
+
+        <section class="leaderboard" aria-labelledby="leaderboard-title">
+          <div class="leaderboard-heading">
+            <div>
+              <p class="eyebrow">SAVED ON THIS DEVICE</p>
+              <h2 id="leaderboard-title">Leaderboard</h2>
+            </div>
+            <p class="leaderboard-subtitle">Best completed rounds on this device</p>
+          </div>
+          <ol class="leaderboard-list" id="leaderboard-list" aria-live="polite"></ol>
+        </section>
+
+        <section class="how-to" id="how-to-play">
+          <div class="how-heading"><p class="eyebrow">HOW TO PLAY</p><h2>Three easy steps.</h2></div>
+          <div class="steps">
+            <article class="step"><span class="step-number">01</span><div class="step-illustration" aria-hidden="true">01</div><div><h3>Get in frame</h3><p>Allow the camera and show one or both hands, palms facing it.</p></div></article>
+            <article class="step"><span class="step-number">02</span><div class="step-illustration movement-arrows" aria-hidden="true">↑<span>↓</span></div><div><h3>Lift, then lower</h3><p>Raise your hand, then bring it back down to score a rep.</p></div></article>
+            <article class="step"><span class="step-number">03</span><div class="step-illustration score-pop" aria-hidden="true">+1</div><div><h3>That’s one rep</h3><p>Each full up-and-down movement adds one to your score.</p></div></article>
+          </div>
+        </section>
+      </main>
+      <footer class="footer"><span>67 · HAND GAME</span><span>Your video stays on your device</span></footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
