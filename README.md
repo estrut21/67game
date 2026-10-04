@@ -5,6 +5,7 @@
 An entirely unnecessary sport in which you wave your hands at a webcam to earn deeply unimportant points. The rules are simple: start with your hand(s) low, lift them, lower them, and try to get as many reps as possible before the timer runs out. At six and seven reps, a tiny unicorn appears to celebrate your questionable athletic achievement.
 
 **Play it:** [67game-pi.vercel.app](https://67game-pi.vercel.app/)
+Link to video demo: https://www.youtube.com/watch?v=qcJGfQPUO1A
 
 ## What it does
 
